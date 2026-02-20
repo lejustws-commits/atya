@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arya Laqif | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00aaff; /* Warna biru cerah */
+            --bg: #0a0a0a;
+            --card: rgba(255, 255, 255, 0.07);
+            --text: #ffffff;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        /* Latar belakang animasi */
+        .bg-animate {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #050505, #111);
+        }
+
+        header {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-sizing: border-box;
+        }
+
+        .school-name {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .menu-btn {
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--primary);
+            background: var(--card);
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1px solid var(--primary);
+        }
+
+        /* Overlay Menu Box */
+        .overlay {
+            height: 100%; width: 0;
+            position: fixed; z-index: 200;
+            top: 0; right: 0;
+            background-color: rgba(0,0,0,0.9);
+            overflow-x: hidden;
+            transition: 0.5s;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .menu-container {
+            background: rgba(0, 170, 255, 0.1);
+            border: 2px solid var(--primary);
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            min-width: 250px;
+        }
+
+        .overlay a {
+            padding: 15px;
+            text-decoration: none;
+            font-size: 28px;
+            color: var(--primary); /* Tulisan jadi biru */
+            display: block;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .overlay a:hover { transform: scale(1.1); text-shadow: 0 0 10px var(--primary); }
+
+        /* Halaman Lebar */
+        .page {
+            display: none;
+            padding: 120px 5%; /* Lebar samping dikurangi agar konten meluas */
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .page.active { display: block; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Kontainer Utama yang Lebar */
+        .wide-container {
+            background: var(--card);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 1000px; /* Jauh lebih lebar dari sebelumnya */
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .profile-section { flex: 1; min-width: 300px; text-align: center; }
+        .text-section { flex: 2; min-width: 300px; }
+
+        .profile-img {
+            width: 220px; height: 220px;
+            border-radius: 20%;
+            border: 5px solid var(--primary);
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(0, 170, 255, 0.3);
+        }
+
+        h1 { font-size: 3rem; margin: 0; color: var(--primary); }
+        
+        /* Tombol Belajar Web */
+        .btn-learn {
+            display: inline-block;
+            margin-top: 25px;
+            background: var(--primary);
+            color: #000;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 170, 255, 0.4);
+        }
+
+        .btn-learn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 170, 255, 0.6);
+            background: #fff;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .info-box {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .wide-container { padding: 20px; text-align: center; }
+            .info-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animate"></div>
+
+    <header>
+        <div class="school-name">Arya Creative Space</div>
+        <div class="menu-btn" onclick="openNav()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <div id="myNav" class="overlay">
+        <div class="menu-container">
+            <a href="javascript:void(0)" style="font-size: 50px;" onclick="closeNav()">&times;</a>
+            <a href="#" onclick="showPage('home')">HOME</a>
+            <a href="#" onclick="showPage('about')">BIODATA</a>
+            <a href="#" onclick="showPage('purpose')">SOSMED</a>
+        </div>
+    </div>
+
+    <div id="home" class="page active">
+        <div class="wide-container">
+            <div class="profile-section">
+                <img src="1000997868.jpg" class="profile-img" alt="Arya">
+            </div>
+            <div class="text-section">
+                <p style="color: var(--primary); font-weight: bold; letter-spacing: 3px;">SELAMAT DATANG</p>
+                <h1>Saya Arya Laqif</h1>
+                <p style="font-size: 1.2rem; opacity: 0.8;">"Terlalu ganteng, rajin, dan baik hati. Fokus membuat dunia web lebih keren."</p>
+                
+                <a href="https://wa.me/6282279079236?text=Halo%20Arya,%20saya%20mau%20belajar%20buat%20web%20dong" class="btn-learn">
+                    <i class="fas fa-code"></i> BELAJAR BUAT WEB
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="about" class="page">
+        <div class="wide-container">
+            <div style="width: 100%;">
+                <h2 style="color: var(--primary);"><i class="fas fa-fingerprint"></i> Data Pribadi Lengkap</h2>
+                <div class="info-grid">
+                    <div class="info-box"><b>Nama:</b> Arya Laqif</div>
+                    <div class="info-box"><b>Lahir:</b> 01 November 2012</div>
+                    <div class="info-box"><b>Tempat Tinggal:</b> Aras Sembilan</div>
+                    <div class="info-box"><b>Hobi:</b> Buat Web & Main Bola</div>
+                    <div class="info-box"><b>Kelebihan:</b> Terlalu Ganteng & Baik Hati</div>
+                    <div class="info-box"><b>Sifat:</b> Rajin & Penolong</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="purpose" class="page">
+        <div class="wide-container">
+            <div style="width: 100%; text-align: center;">
+                <h2 style="color: var(--primary);">Tujuan Website & Sosial Media</h2>
+                <p>Website ini dibuat untuk memperkenalkan diri dan membagikan semangat belajar programming dan agar terus berkembang makin semangat.</p>
+                <div class="info-grid">
+                    <div class="info-box"><i class="fab fa-tiktok"></i> TikTok: Lupa</div>
+                    <div class="info-box"><i class="fab fa-instagram"></i> Instagram: Arya soft spoken</div>
+                    <div class="info-box"><i class="fab fa-whatsapp"></i> WhatsApp: 082279079236</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openNav() { document.getElementById("myNav").style.width = "100%"; }
+        function closeNav() { document.getElementById("myNav").style.width = "0%"; }
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            closeNav();
+        }
+    </script>
+
+</body>
+</html>
